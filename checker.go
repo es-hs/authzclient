@@ -65,8 +65,8 @@ func GenerateOwnerRole(userId uint, shopId uint) (uint, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	r, err := C.GenerateOwnerRole(ctx, &pb.GenerateOwnerRoleRequest{
-		UserId: 2008,
-		ShopId: 2011,
+		UserId: int64(userId),
+		ShopId: int64(shopId),
 	})
 	if err != nil {
 		return 1, err
