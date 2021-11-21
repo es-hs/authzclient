@@ -23,7 +23,7 @@ import (
 	"log"
 	"time"
 
-	"authzclient"
+	"github.com/es-hs/authzclient"
 
 	"google.golang.org/grpc"
 )

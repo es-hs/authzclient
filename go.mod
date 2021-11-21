@@ -1,4 +1,4 @@
-module authzclient
+module github.com/es-hs/authzclient
 
 go 1.17
 
