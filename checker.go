@@ -73,3 +73,45 @@ func GenerateOwnerRole(userId uint, shopId uint) (uint, error) {
 	}
 	return uint(r.Code), nil
 }
+
+func AddRolesForUserToDomain(userId uint, shopId uint, roles []string) (bool, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := C.AddRolesForUserToDomain(ctx, &pb.AddRolesForUserToDomainRequest{
+		UserId: int64(userId),
+		ShopId: int64(shopId),
+		Act:    roles,
+	})
+	if err != nil {
+		return false, err
+	}
+	return r.Result, nil
+}
+
+func RemoveRolesFromDomain(userId uint, shopId uint, roles []string) (bool, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := C.RemoveRolesFromDomain(ctx, &pb.RemoveRolesFromDomainRequest{
+		UserId: int64(userId),
+		ShopId: int64(shopId),
+		Act:    roles,
+	})
+	if err != nil {
+		return false, err
+	}
+	return r.Result, nil
+}
+
+func RemoveRoleFromDomain(userId uint, shopId uint, role string) (bool, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := C.RemoveRoleFromDomain(ctx, &pb.RemoveRoleFromDomainRequest{
+		UserId: int64(userId),
+		ShopId: int64(shopId),
+		Act:    role,
+	})
+	if err != nil {
+		return false, err
+	}
+	return r.Result, err
+}

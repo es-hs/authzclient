@@ -3,7 +3,7 @@ module github.com/es-hs/authzclient
 go 1.17
 
 require (
-	github.com/es-hs/erpc v0.0.0-20211121155217-997a0358396f
+	github.com/es-hs/erpc v0.0.0-20211122104536-afb2fb9075f2
 	google.golang.org/grpc v1.37.0
 )
 

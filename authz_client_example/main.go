@@ -29,9 +29,9 @@ import (
 )
 
 const (
-	// address     = "localhost:50051"
+	address = "localhost:50051"
 	// address     = "3.0.95.112:50051"
-	address     = "authz.gempages.xyz:50051"
+	// address     = "authz.gempages.xyz:50051"
 	defaultName = "world"
 )
 
@@ -105,4 +105,52 @@ func main() {
 
 	log.Println(r5)
 	log.Println(time.Since(t1))
+
+	r6, err := authzclient.AddRolesForUserToDomain(2009, 2011, []string{authzclient.ADMIN_ROLE, authzclient.PRODUCT_READ})
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(r6)
+	log.Println(time.Since(t1))
+
+	//show
+	roles, err = authzclient.GetRolesInDomain(2009, 2011)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(roles)
+	log.Println(time.Since(t1))
+	//
+	r7, err := authzclient.RemoveRoleFromDomain(2009, 2011, authzclient.OWNER_ROLE)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(r7)
+	log.Println(time.Since(t1))
+
+	//show
+	roles, err = authzclient.GetRolesInDomain(2009, 2011)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(roles)
+	log.Println(time.Since(t1))
+	//
+
+	r8, err := authzclient.RemoveRolesFromDomain(2009, 2011, []string{authzclient.ADMIN_ROLE, authzclient.PRODUCT_READ})
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(r8)
+	log.Println(time.Since(t1))
+
+	//show
+	roles, err = authzclient.GetRolesInDomain(2009, 2011)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(roles)
+	log.Println(time.Since(t1))
+	//
+
 }
