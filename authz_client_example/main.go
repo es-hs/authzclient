@@ -98,6 +98,7 @@ func main() {
 	// 	UserId: 2009,
 	// 	ShopId: 2011,
 	// })
+	_, _ = authzclient.GenerateOwnerRole(2008, 2011)
 	r5, err := authzclient.GenerateOwnerRole(2009, 2011)
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
@@ -113,7 +114,15 @@ func main() {
 	log.Println(r6)
 	log.Println(time.Since(t1))
 
+	r6, err = authzclient.AddRolesForUserToDomain(2010, 2011, []string{authzclient.ADMIN_ROLE, authzclient.PRODUCT_READ})
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(r6)
+	log.Println(time.Since(t1))
+
 	//show
+	log.Println("list role of 2009 in domain 2011")
 	roles, err = authzclient.GetRolesInDomain(2009, 2011)
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
@@ -137,12 +146,12 @@ func main() {
 	log.Println(time.Since(t1))
 	//
 
-	r8, err := authzclient.RemoveRolesFromDomain(2009, 2011, []string{authzclient.ADMIN_ROLE, authzclient.PRODUCT_READ})
-	if err != nil {
-		log.Fatalf("could not greet: %v", err)
-	}
-	log.Println(r8)
-	log.Println(time.Since(t1))
+	// r8, err := authzclient.RemoveRolesFromDomain(2009, 2011, []string{authzclient.ADMIN_ROLE, authzclient.PRODUCT_READ})
+	// if err != nil {
+	// 	log.Fatalf("could not greet: %v", err)
+	// }
+	// log.Println(r8)
+	// log.Println(time.Since(t1))
 
 	//show
 	roles, err = authzclient.GetRolesInDomain(2009, 2011)
@@ -153,4 +162,31 @@ func main() {
 	log.Println(time.Since(t1))
 	//
 
+	//show partner list and role list
+	log.Println("list user ")
+	users, partners, err := authzclient.GetAllUsersByDomain(2011)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(users)
+	log.Println(partners)
+	log.Println(time.Since(t1))
+
+	//show partner list and role list by role
+	log.Println("list user with role ", authzclient.ADMIN_ROLE)
+	users, partners, err = authzclient.GetUsersForRoleInDomain(2011, authzclient.ADMIN_ROLE)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(users)
+	log.Println(partners)
+
+	log.Println("list user with role ", authzclient.OWNER_ROLE)
+	users, partners, err = authzclient.GetUsersForRoleInDomain(2011, authzclient.OWNER_ROLE)
+	if err != nil {
+		log.Fatalf("could not greet: %v", err)
+	}
+	log.Println(users)
+	log.Println(partners)
+	log.Println(time.Since(t1))
 }

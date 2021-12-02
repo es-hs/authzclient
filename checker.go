@@ -2,6 +2,8 @@ package authzclient
 
 import (
 	"context"
+	"strconv"
+	"strings"
 	"time"
 
 	pb "github.com/es-hs/erpc/authz"
@@ -114,4 +116,66 @@ func RemoveRoleFromDomain(userId uint, shopId uint, role string) (bool, error) {
 		return false, err
 	}
 	return r.Result, err
+}
+
+func GetAllUsersByDomain(shopId uint) ([]uint, []uint, error) {
+	var userIds []uint
+	var partnerIds []uint
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := C.GetAllUsersByDomain(ctx, &pb.GetAllUsersByDomainRequest{
+		ShopId: int64(shopId),
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	for k := range r.UserIds {
+		if strings.Contains(r.UserIds[k], "user_") {
+			uID, _ := strconv.Atoi(r.UserIds[k][5:])
+			userIds = append(userIds, uint(uID))
+		}
+		if strings.Contains(r.UserIds[k], "partner_") {
+			uID, _ := strconv.Atoi(r.UserIds[k][8:])
+			partnerIds = append(partnerIds, uint(uID))
+		}
+	}
+	return userIds, partnerIds, err
+}
+
+func GetUsersForRoleInDomain(shopId uint, role string) ([]uint, []uint, error) {
+	var userIds []uint
+	var partnerIds []uint
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := C.GetUsersForRoleInDomain(ctx, &pb.GetUsersForRoleInDomainRequest{
+		ShopId: int64(shopId),
+		Role:   role,
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	for k := range r.UserIds {
+		if strings.Contains(r.UserIds[k], "user_") {
+			uID, _ := strconv.Atoi(r.UserIds[k][5:])
+			userIds = append(userIds, uint(uID))
+		}
+		if strings.Contains(r.UserIds[k], "partner_") {
+			uID, _ := strconv.Atoi(r.UserIds[k][8:])
+			partnerIds = append(partnerIds, uint(uID))
+		}
+	}
+
+	return userIds, partnerIds, err
+}
+
+func DeleteDomains(shopId uint) (bool, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	r, err := C.DeleteDomains(ctx, &pb.DeleteDomainsRequest{
+		ShopIds: []int64{int64(shopId)},
+	})
+	if err != nil {
+		return false, err
+	}
+	return r.Result, nil
 }
