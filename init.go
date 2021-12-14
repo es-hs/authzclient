@@ -12,7 +12,7 @@ var (
 
 func InitAuthClient(target string, opts ...grpc.DialOption) error {
 	var err error
-	Conn, err = grpc.Dial(target, grpc.WithInsecure(), grpc.WithBlock())
+	Conn, err = grpc.Dial(target, opts...)
 	if err != nil {
 		return err
 	}
