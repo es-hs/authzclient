@@ -1,18 +1,24 @@
 package authzclient
 
 import (
+	"context"
+	"time"
+
 	pb "github.com/es-hs/erpc/authz"
 	"google.golang.org/grpc"
 )
 
 var (
-	Conn *grpc.ClientConn
-	C    pb.AuthzRPCClient
+	Conn           *grpc.ClientConn
+	ConnCancelFunc context.CancelFunc
+	C              pb.AuthzRPCClient
 )
 
 func InitAuthClient(target string, opts ...grpc.DialOption) error {
 	var err error
-	Conn, err = grpc.Dial(target, grpc.WithInsecure(), grpc.WithBlock())
+	ctx, cancelFunc := context.WithTimeout(context.Background(), 5*time.Second)
+	ConnCancelFunc = cancelFunc
+	Conn, err = grpc.DialContext(ctx, target, opts...)
 	if err != nil {
 		return err
 	}
