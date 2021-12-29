@@ -14,9 +14,9 @@ var (
 	C              pb.AuthzClient
 )
 
-func InitAuthClient(target string, opts ...grpc.DialOption) error {
+func InitAuthClient(target string, timeout time.Duration, opts ...grpc.DialOption) error {
 	var err error
-	ctx, cancelFunc := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancelFunc := context.WithTimeout(context.Background(), timeout)
 	ConnCancelFunc = cancelFunc
 	Conn, err = grpc.DialContext(ctx, target, opts...)
 	if err != nil {
