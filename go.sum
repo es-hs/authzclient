@@ -17,6 +17,8 @@ github.com/es-hs/erpc v0.0.0-20211129033835-2e802500275c h1:Nh7ZvqYALa8YIVNQqvem
 github.com/es-hs/erpc v0.0.0-20211129033835-2e802500275c/go.mod h1:KwYaQR6FjCUJ/VHSP0HqiaAySbl4A7b+j5NlAdhOuo0=
 github.com/es-hs/erpc v0.0.0-20211202080435-8e1e5abdd386 h1:hSmtm7RqN1eaKoWx2ZKE+onKkhuNhIgRsEsvp5lgi/U=
 github.com/es-hs/erpc v0.0.0-20211202080435-8e1e5abdd386/go.mod h1:KwYaQR6FjCUJ/VHSP0HqiaAySbl4A7b+j5NlAdhOuo0=
+github.com/es-hs/erpc v0.0.0-20211229082418-48dbb77f8f22 h1:o2bKRgjz7Wb1bTUHRAD4iUVi3c0Uvxn2UqzSH9q6eKY=
+github.com/es-hs/erpc v0.0.0-20211229082418-48dbb77f8f22/go.mod h1:i2traMuUk04Zlz0XgYkFGUC0+u9LrclA/mI666+hvGA=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/mock v1.1.1/go.mod h1:oTYuIxOrZwtPieC+H1uAHpcLFnEyAGVDL/k47Jfbm0A=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
