@@ -36,7 +36,7 @@ const (
 )
 
 func main() {
-	err := authzclient.InitAuthClient(address, grpc.WithInsecure(), grpc.WithBlock())
+	err := authzclient.InitAuthClient(address, 1*time.Second, grpc.WithInsecure(), grpc.WithBlock())
 	defer authzclient.Conn.Close()
 
 	if err != nil {

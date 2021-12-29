@@ -11,7 +11,7 @@ import (
 var (
 	Conn           *grpc.ClientConn
 	ConnCancelFunc context.CancelFunc
-	C              pb.AuthzRPCClient
+	C              pb.AuthzClient
 )
 
 func InitAuthClient(target string, timeout time.Duration, opts ...grpc.DialOption) error {
@@ -22,6 +22,6 @@ func InitAuthClient(target string, timeout time.Duration, opts ...grpc.DialOptio
 	if err != nil {
 		return err
 	}
-	C = pb.NewAuthzRPCClient(Conn)
+	C = pb.NewAuthzClient(Conn)
 	return nil
 }
